@@ -34,9 +34,9 @@ jobs:
       - name: Enable MS Developer Command Prompt
         if: ${{ runner.os == 'Windows' }}
         uses: ilammy/msvc-dev-cmd@v1
-      - name: Build NotBroken.swift
+      - name: Builds fine with NOT_BROKEN defined
         run: |
-          swiftc NotBroken.swift
-      - name: Build Broken.swift
+          swift build -DNOT_BROKEN
+      - name: Build breaks
         run: |
-          swiftc Broken.swift
+          swift build --use-integrated-swift-driver

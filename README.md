@@ -4,13 +4,13 @@ The `isolated` keyword in the passed closure could be the culprit!
 
 Just run on macOS or Windows with 5.7.1 Release:
 
-`swiftc NotBroken.swift`
+`swift build -Xswiftc -DNOT_BROKEN`
 
 and all is well! But if you run:
 
-`swiftc Broken.swift`
+`swift build` or, to get an understandable error: `swift build --use-integrated-swift-driver`
 
-and get (on macOS, for example):
+you get (on macOS, for example):
 
 ```
 error: compile command failed due to signal 6 (use -v to see invocation)
