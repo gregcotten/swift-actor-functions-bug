@@ -36,7 +36,7 @@ jobs:
         uses: ilammy/msvc-dev-cmd@v1
       - name: Builds fine with NOT_BROKEN defined
         run: |
-          swift build -DNOT_BROKEN
+          swift build -Xswiftc -DNOT_BROKEN
       - name: Build breaks
         run: |
           swift build --use-integrated-swift-driver
