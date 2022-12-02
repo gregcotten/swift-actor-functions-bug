@@ -1,8 +1,14 @@
 # swift-actor-functions-bug
 
+The `isolated` keyword in the passed closure could be the culprit!
+
 Just run on macOS or Windows with 5.7.1 Release:
 
-`swiftc BrokenOnWindows.swift`
+`swiftc NotBroken.swift`
+
+and all is well! But if you run:
+
+`swiftc Broken.swift`
 
 and get (on macOS, for example):
 
@@ -11,12 +17,12 @@ error: compile command failed due to signal 6 (use -v to see invocation)
 Assertion failed: (param->getInterfaceType() ->lookThroughAllOptionalTypes() ->castTo<AnyFunctionType>() ->hasEffect(kind) || !param->getInterfaceType() ->lookThroughAllOptionalTypes() ->castTo<AnyFunctionType>() ->getGlobalActor().isNull()), function classifyParameterBody, file TypeCheckEffects.cpp, line 908.
 Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the project and the crash backtrace.
 Stack dump:
-0.	Program arguments: /Users/runner/hostedtoolcache/swift-macOS/5.7.1/x64/usr/bin/swift-frontend -frontend -c -primary-file BrokenOnWindows.swift -target x86_64-apple-macosx12.0 -enable-objc-interop -new-driver-path /Users/runner/hostedtoolcache/swift-macOS/5.7.1/x64/usr/bin/swift-driver -empty-abi-descriptor -resource-dir /Users/runner/hostedtoolcache/swift-macOS/5.7.1/x64/usr/lib/swift -module-name BrokenOnWindows -o /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/TemporaryDirectory.ddeL3G/BrokenOnWindows-1.o
+0.	Program arguments: /Users/runner/hostedtoolcache/swift-macOS/5.7.1/x64/usr/bin/swift-frontend -frontend -c -primary-file Broken.swift -target x86_64-apple-macosx12.0 -enable-objc-interop -new-driver-path /Users/runner/hostedtoolcache/swift-macOS/5.7.1/x64/usr/bin/swift-driver -empty-abi-descriptor -resource-dir /Users/runner/hostedtoolcache/swift-macOS/5.7.1/x64/usr/lib/swift -module-name Broken -o /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/TemporaryDirectory.ddeL3G/Broken-1.o
 1.	Apple Swift version 5.7.1 (swift-5.7.1-RELEASE)
 2.	Compiling with the current language version
-3.	While evaluating request TypeCheckSourceFileRequest(source_file "BrokenOnWindows.swift")
-4.	While evaluating request TypeCheckFunctionBodyRequest(BrokenOnWindows.(file).ActorFunctionConsumer.init(_:)@BrokenOnWindows.swift:19:5)
-5.	While checking effects handling for 'init(_:)' (at BrokenOnWindows.swift:19:5)
+3.	While evaluating request TypeCheckSourceFileRequest(source_file "Broken.swift")
+4.	While evaluating request TypeCheckFunctionBodyRequest(Broken.(file).ActorFunctionConsumer.init(_:)@Broken.swift:19:5)
+5.	While checking effects handling for 'init(_:)' (at Broken.swift:19:5)
 Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
 0  swift-frontend           0x000000010c82b137 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 39
 1  swift-frontend           0x000000010c82a355 llvm::sys::RunSignalHandlers() + 85
