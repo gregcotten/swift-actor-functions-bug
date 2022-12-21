@@ -1,5 +1,7 @@
 # swift-actor-functions-bug
 
+[Swift Issue](https://github.com/apple/swift/issues/62377)
+
 The `isolated` keyword in the passed closure could be the culprit!
 
 Just run on macOS or Windows with 5.7.1 Release:
